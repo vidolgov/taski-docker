@@ -12,6 +12,7 @@ jobs:
   # ============================
   tests:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:13.10
@@ -21,7 +22,7 @@ jobs:
           POSTGRES_DB: django_db
         ports:
           - 5432:5432
-        options: >
+        options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
@@ -54,7 +55,6 @@ jobs:
           cd backend/
           python manage.py test
 
-
   # ============================
   # BACKEND BUILD AND PUSH
   # ============================
@@ -83,7 +83,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/taski_backend:latest
 
-
   # ============================
   # FRONTEND TESTS
   # ============================
@@ -107,7 +106,6 @@ jobs:
         run: |
           cd frontend/
           npm run test
-
 
   # ============================
   # FRONTEND BUILD AND PUSH
@@ -136,7 +134,6 @@ jobs:
           context: ./frontend/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/taski_frontend:latest
-
 
   # ============================
   # GATEWAY (NGINX) BUILD AND PUSH
